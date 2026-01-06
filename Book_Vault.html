@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BookVault</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    .bookvault {
+  width: 380px;
+  margin: auto;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #bbb;
+}
+
+h2, h3 {
+  text-align: center;
+}
+
+input, select {
+  width: 95%;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #555;
+}
+
+button {
+  width: 100%;
+  padding: 8px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #15803d;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #fff;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #ccc;
+}
+</style>
+<body>
+
+<div class="bookvault">
+  <h2>BookVault – Digital Bookshelf</h2>
+
+  <div class="book-section">
+    <h3>Add Book</h3>
+    <input type="text" id="bookTitle" placeholder="Book Title">
+    <input type="text" id="bookAuthor" placeholder="Author Name">
+    <select id="bookStatus">
+      <option value="">Reading Status</option>
+      <option value="Reading">Reading</option>
+      <option value="Completed">Completed</option>
+      <option value="To Read">To Read</option>
+    </select>
+    <input type="number" id="bookRating" placeholder="Rating (1–5)">
+    <button id="addBookBtn">Add Book</button>
+  </div>
+
+  <ul id="bookList"></ul>
+</div>
+
+<script src="script.js">
+    document.addEventListener("DOMContentLoaded", function () {
+
+  document.getElementById("addBookBtn").addEventListener("click", function () {
+
+    const title = document.getElementById("bookTitle").value;
+    const author = document.getElementById("bookAuthor").value;
+    const status = document.getElementById("bookStatus").value;
+    const rating = document.getElementById("bookRating").value;
+
+    if (title === "" || author === "" || status === "" || rating === "") return;
+
+    const list = document.getElementById("bookList");
+
+    const item = document.createElement("li");
+    item.innerHTML = `
+      <strong>${title}</strong><br>
+      Author: ${author}<br>
+      Status: ${status}<br>
+      Rating: ${rating}/5
+    `;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.style.marginTop = "5px";
+
+    deleteBtn.addEventListener("click", function () {
+      list.removeChild(item);
+    });
+
+    item.appendChild(deleteBtn);
+    list.appendChild(item);
+
+    document.getElementById("bookTitle").value = "";
+    document.getElementById("bookAuthor").value = "";
+    document.getElementById("bookStatus").value = "";
+    document.getElementById("bookRating").value = "";
+  });
+
+});
+</script>
+</body>
+</html>
